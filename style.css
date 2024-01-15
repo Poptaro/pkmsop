@@ -1,0 +1,12 @@
+.header{
+    text-align:center;
+    margin: 20px;
+    padding: 5px;
+}
+
+.smashbutton:hover{
+    background-color: green;
+}
+.passbutton:hover{
+    background-color: red;
+}
