@@ -4,9 +4,39 @@
     padding: 5px;
 }
 
-.smashbutton:hover{
+.smashButton{
+    width: 100;
+    height: 50;
+    display: none;
+}
+
+.passButton{
+    width: 100;
+    height: 50;
+    display: none;
+}
+
+.smashButton:hover{
     background-color: green;
 }
-.passbutton:hover{
+.passButton:hover{
     background-color: red;
+}
+
+.buttonDiv {
+    text-align: center;
+
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.pokeName {
+    font-size: 70px;
+    
+}
+
+.namePic {
+    text-align: center;
 }
