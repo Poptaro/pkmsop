@@ -1,7 +1,12 @@
+body {
+    font-family: sans-serif;
+}
+
 .header{
     text-align:center;
     margin: 20px;
     padding: 5px;
+    font-size: 50px;
 }
 
 .mainBody {
@@ -40,9 +45,42 @@
 
 }
 
-body {
-    font-family: sans-serif;
+.resultParent{
+    display: flex;
+    width: 50%;
 }
+
+.smashList {
+    text-align: start;
+    display: inline-block;
+    flex: 1;
+    border-style: groove;
+}
+
+.passList {
+    text-align: start;
+    display: inline-block;
+    flex: 1;
+    border-style: groove;
+}
+
+.smashUL, .passUL {
+    font-size: 25px;
+    list-style-type: none;
+    padding: 5px
+}
+.smashpassTitle {
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    border: solid .25rem rgb(48, 48, 48);
+}
+
+/* .passUL {
+    font-size: 25px;
+    text-align: center;
+    list-style-type: none;
+} */
 
 .pokeName {
     font-size: 70px;

@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const passButton = document.querySelector('#pass');
     const smashList = document.querySelector('.smashList');
     const mainGame = document.querySelector('.mainGame');
+    const mainBody = document.querySelector('.mainBody');
+    const realBody = document.querySelector('.realBody');
+    
 
 
     let pokemonJsonList = []
@@ -15,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let pokemonNameList = [];
     let smashArray = []
     let passArray = []
+
+    //choose how many pokemon to pull from the api starting with bulbasaur(1)
+    const amountToRetrieve = 6;
 
     //Function to convert the all lowercase basic json information into regular Capitlized beginning words
     function uppercaseFirst (obj) {
@@ -35,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-
+    //fucking wild west bullshit right here. it works and thats all that matters.
     function spliceIt(list) {
         let temporaryName = pokemonNameList.splice(pokemonNameList[1], 1);
         let temporaryPokemon = pokemonPicList.splice(pokemonPicList[1], 1);
@@ -47,13 +53,56 @@ document.addEventListener('DOMContentLoaded', () => {
     //Whenever pokemonJsonList becomes 0, remove everything that links to the main game
     function results() {
         if(pokemonJsonList.length === 0){
-            mainGame.remove()
+            mainBody.remove()
         }
         
     }
 
+    //This procs everytime the smassh or pass buttons are pressed. when the condition is true, it will start the results
+    function resultScreen(smash, pass) {
+        if(amountToRetrieve == (smashArray.length + passArray.length)) {
+            realBody.innerHTML += `
+                <div class="resultParent">
+                    <div class="smashList">
+                        <p class="smashpassTitle">SMASH</p>
+                        <ul class="smashUL">
+                        </ul>
+                    </div>
+
+                    <div class="passList">
+                        <p class="smashpassTitle">PASS</p>
+                        <ul class="passUL">
+                        </ul>
+                    </div>
+                </div>
+                `
+            for(let i = 0;i < smashArray.length;i++){
+                const smashUL = document.querySelector('.smashUL');
+                smashUL.innerHTML += `
+                    <li>
+                        <img src='${smashArray[i][1]}' width='50' height='50'>
+                        ${smashArray[i][0]}
+                    </li>
+                `
+            }
+            
+            for(let i = 0;i < passArray.length;i++){
+                const passUL = document.querySelector('.passUL');
+                passUL.innerHTML += `
+                    <li>
+                        <img src='${passArray[i][1]}' width='50' height='50'>
+                        ${passArray[i][0]}
+                    </li>
+                `
+            }
+            
+                    
+            
+        }
+    }
+
     async function fetchPokemon() {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=9');
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${amountToRetrieve}`);
         const responseJson = await response.json();
         const responseResults = responseJson.results;
 
@@ -86,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
     })
 
-    
+////Main two buttons of the game
+////////////////////////////////////////////////////////////////////////////
 
     smashButton.addEventListener('click', () => {
         if (pokemonJsonList.length === 1) {
@@ -98,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
             pokemonFiller();
             results();
         }
+
+        resultScreen(smashArray, passArray);
         
     })
 
@@ -111,7 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
             pokemonFiller();
             results();
         }
+
+        resultScreen(smashArray, passArray);
     })
+
+////////////////////////////////////////////////////////////////////////////  
 
     function list() {
         console.log(pokemonPicList);
@@ -119,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(smashArray);
         console.log(passArray);
         console.log(pokemonJsonList)
+        console.log(smashArray.length + passArray.length == amountToRetrieve);
     }
     
 
